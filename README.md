@@ -38,9 +38,7 @@ pip install pandas scikit-learn
 4. **Selection**: Extracts the feature that achieved the maximum F1-score and stores it in the `best_predictive_feature` dictionary.
 
 ## Usage
-Run the script in your Python environment or Jupyter Notebook:
-```bash
-python crop_prediction.py
+Run the script in Code
 ```
 
 ### Expected Output
