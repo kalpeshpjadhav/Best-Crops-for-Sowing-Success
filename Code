@@ -1,0 +1,29 @@
+# All required libraries are imported here for you.
+import pandas as pd
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn import metrics
+
+# Load the dataset
+crops = pd.read_csv("soil_measures.csv")
+
+# Write your code here
+crops.head()
+logreg = LogisticRegression()
+X = crops.drop('crop', axis=1)
+y = crops['crop']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+feature_performance = {}
+feature_dict = ["N", "P", "K", "ph"]
+for feature in feature_dict:
+    logreg.fit(X_train[[feature]],y_train)
+    y_pred = logreg.predict(X_test[[feature]])
+    f1 = metrics.f1_score(y_test, y_pred, average="weighted")
+    feature_performance[feature] = f1
+    print(f"F1-score for {feature}: {f1}")
+
+# Find the feature with the highest F1-score
+best_feature = max(feature_performance, key=feature_performance.get)
+best_predictive_feature = {best_feature: feature_performance[best_feature]}
+best_predictive_feature
